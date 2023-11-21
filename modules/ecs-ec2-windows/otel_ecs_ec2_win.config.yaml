@@ -42,13 +42,13 @@ exporters:
     application_name: "$APP_NAME"
     subsystem_name: "$SUB_SYS"
     application_name_attributes:
-    - $APP_NAME
+    - $ApplicationName
     - "aws.ecs.cluster"
     - "aws.ecs.cluster.name"
     - "aws.ecs.task.definition.family"
     - "container.name"
     subsystem_name_attributes:
-    - $SUB_SYS
+    - $SubSystemName
     - "aws.ecs.task.family"
     - "aws.ecs.container.name"
     - "aws.ecs.docker.name"

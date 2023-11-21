@@ -12,7 +12,7 @@ variable "otel_image" {
 variable "app_image" {
   description = "Optional User-provided demo App as a Windows container image, to demonstrate collection of console logs and metrics. If omitted, defaults to a provided sample Windows logging app."
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "coralogix_region" {
@@ -35,7 +35,7 @@ variable "application_name" {
   type        = string
   default     = "ECS-Windows-Demo"
   validation {
-    condition     = length(var.default_application_name) >= 1 && length(var.default_application_name) <= 64
+    condition     = length(var.application_name) >= 1 && length(var.application_name) <= 64
     error_message = "The Default Application Name length should be within 1 and 64 characters"
   }
 }
@@ -45,7 +45,7 @@ variable "subsystem_name" {
   type        = string
   default     = "ECS-Windows-Demo"
   validation {
-    condition     = length(var.default_subsystem_name) >= 1 && length(var.default_subsystem_name) <= 64
+    condition     = length(var.subsystem_name) >= 1 && length(var.subsystem_name) <= 64
     error_message = "The Default Subsystem Name length should be within 1 and 64 characters"
   }
 }
@@ -60,4 +60,14 @@ variable "otel_config_file" {
   type        = string
   description = "Optional file path to a custom opentelemetry configuration file. Defaults to an embedded configuration."
   default     = null
+}
+
+variable subnet_ids {
+  description = "List of subnet IDs to deploy the ECS Service into. Must be in the same VPC as the ECS Cluster."
+  type        = list
+}
+
+variable security_group_id {
+  description = "Security Group ID to deploy the ECS Service into. Must be in the same VPC as the ECS Cluster."
+  type        = string
 }

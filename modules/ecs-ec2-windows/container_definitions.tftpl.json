@@ -1,13 +1,19 @@
 [
-%{ if ${app_image} != "" }
+  %{ if app_image != "" }
   {
-    "name"      : "custom_demo_app",
-    "image"     : "${app_image}",
-    "cpu"       : 256,
-    "memory"    : 512,
-    "essential" : true,
+      "name"      : "custom_demo_app",
+      "image"     : "${app_image}",
+      "cpu"       : 256,
+      "memory"    : 512,
+      "essential" : true,
+      "dependsOn": [
+        {
+          "containerName": "coralogix-otel-agent",
+          "condition": "HEALTHY"
+        }
+      ]
   },
-%{else}
+  %{else}
   {
     "name"      : "demo_app",
     "image"     : "mcr.microsoft.com/windows/servercore:ltsc2019",
@@ -20,9 +26,15 @@
     ],
     "command" : [
       "$count=1;while(1) { Write-Host \"Hello from console writer.\" $count; sleep 1; $count=$count+1;}"
+    ],
+    "dependsOn": [
+      {
+        "containerName": "coralogix-otel-agent",
+        "condition": "HEALTHY"
+      }
     ]
   },
-%{ endif }
+  %{ endif }
   {
     "name" : "coralogix-otel-agent",
     "image" : "${otel_image}",
@@ -35,7 +47,7 @@
         "containerPath" : "C:\\hostfs",
         "readOnly" : true
       }
-    ]
+    ],
     "portMappings" : [
       {
         "containerPort" : 4317,
@@ -73,7 +85,7 @@
       },
       {
         "name" : "OTEL_CONFIG",
-        "value" : "${otel_config}"
+        "value" : ${jsonencode(otel_config)}
       }
     ],
     "healthCheck" : {
@@ -82,7 +94,7 @@
       "interval" : 30,
       "timeout" : 5,
       "retries" : 5
-    }
+    },
     "logConfiguration" : {
       "logDriver" : "awslogs",
       "options" : {
@@ -92,4 +104,5 @@
         "awslogs-create-group" : "true"
       }
     }
-  }]
+  }
+]
