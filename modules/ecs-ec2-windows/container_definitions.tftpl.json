@@ -3,9 +3,15 @@
   {
       "name"      : "custom_demo_app",
       "image"     : "${app_image}",
-      "cpu"       : 256,
-      "memory"    : 512,
+      "cpu"       : 512,
+      "memory"    : 1024,
       "essential" : true,
+      "portMappings" : [
+        {
+          "containerPort" : 80,
+          "hostPort" : 80
+        }
+      ],
       "dependsOn": [
         {
           "containerName": "coralogix-otel-agent",
@@ -17,8 +23,8 @@
   {
     "name"      : "demo_app",
     "image"     : "mcr.microsoft.com/windows/servercore:ltsc2019",
-    "cpu"       : 256,
-    "memory"    : 512,
+    "cpu"       : 512,
+    "memory"    : 1024,
     "essential" : true,
     "entryPoint" : [
       "Powershell",

@@ -1,6 +1,6 @@
-# ECS EC2 Open Telemetry Agent
+# ECS EC2 Open Telemetry Agent for Linux
 
-Terraform module to launch Opentelemetry Collector agents on an existing AWS ECS Cluster on EC2 container instances. An ECS Service runs the [Coralogix Opentelemetry Collector](https://hub.docker.com/r/coralogixrepo/coralogix-otel-collector) image as a Daemon task on each active container instance.
+Terraform module to launch Opentelemetry Collector agents on an existing AWS ECS Cluster on EC2 Linux container instances. An ECS Service runs the [Coralogix Opentelemetry Collector](https://hub.docker.com/r/coralogixrepo/coralogix-otel-collector) image as a Daemon task on each active container instance.
 
 ## Usage
 

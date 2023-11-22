@@ -16,10 +16,6 @@ locals {
   otel_config           = templatefile(local.otel_config_file_path, {})
 }
 
-output otel_config {
-  value = local.otel_config
-}
-
 resource "aws_iam_role" "ecsTaskExecutionRole" {
   name = "${local.name}-ecs-task-execution-role"
   path = "/"

@@ -79,6 +79,7 @@ service:
         - otlp
         - filelog
       processors:
+        - batch
       exporters:
         - coralogix
         - logging

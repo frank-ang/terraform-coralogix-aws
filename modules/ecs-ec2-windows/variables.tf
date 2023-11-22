@@ -3,16 +3,14 @@ variable "ecs_cluster_name" {
   type        = string
 }
 
-variable "otel_image" {
-  description = "Optional Coralogix Open Telemetry Distribution Windows Image Version and Tag."
-  type        = string
-  default     = "coralogixrepo/coralogix-otel-collector:0.1.0-windowsserver-1809"
+variable "subnet_ids" {
+  description = "List of subnet IDs to deploy the ECS Service into. Must be in the same VPC as the ECS Cluster."
+  type        = list
 }
 
-variable "app_image" {
-  description = "Optional User-provided demo App as a Windows container image, to demonstrate collection of console logs and metrics. If omitted, defaults to a provided sample Windows logging app."
+variable "security_group_id" {
+  description = "Security Group ID to deploy the ECS Service into. Must be in the same VPC as the ECS Cluster."
   type        = string
-  default     = ""
 }
 
 variable "coralogix_region" {
@@ -50,6 +48,18 @@ variable "subsystem_name" {
   }
 }
 
+variable "otel_image" {
+  description = "Optional Coralogix Open Telemetry distribution Windows image name and tag."
+  type        = string
+  default     = "coralogixrepo/coralogix-otel-collector:0.1.0-windowsserver-1809"
+}
+
+variable "app_image" {
+  description = "Optional user-provided demo App as a Windows container image, to demonstrate collection of console logs and metrics. If omitted, defaults to a provided sample Windows logging app."
+  type        = string
+  default     = ""
+}
+
 variable "api_key" {
   description = "The Send-Your-Data API key for your Coralogix account. See: https://coralogix.com/docs/send-your-data-api-key/"
   type        = string
@@ -60,14 +70,4 @@ variable "otel_config_file" {
   type        = string
   description = "Optional file path to a custom opentelemetry configuration file. Defaults to an embedded configuration."
   default     = null
-}
-
-variable subnet_ids {
-  description = "List of subnet IDs to deploy the ECS Service into. Must be in the same VPC as the ECS Cluster."
-  type        = list
-}
-
-variable security_group_id {
-  description = "Security Group ID to deploy the ECS Service into. Must be in the same VPC as the ECS Cluster."
-  type        = string
 }
